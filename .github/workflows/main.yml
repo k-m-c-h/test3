@@ -1,0 +1,21 @@
+name: Run Reusable Workflow on Release Branch Push
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  call-reusable-workflow:
+    uses: ./.github/workflows/reusable_workflow.yml
+    with:
+      input1: 'Hello, '
+      input2: 'World'
+      
+  print-output:
+    needs: call-reusable-workflow
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Print concatenated string
+      run: echo "Concatenated result: ${{ needs.call-reusable-workflow.outputs.output1 }}"
