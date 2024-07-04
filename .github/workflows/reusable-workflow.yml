@@ -25,3 +25,4 @@ jobs:
     steps:
     - id: concatenate_step
       run: echo "result=${{ inputs.input1 }}${{ inputs.input2 }}" >> $GITHUB_OUTPUT
+
