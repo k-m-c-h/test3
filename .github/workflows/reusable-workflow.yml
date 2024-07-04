@@ -1,0 +1,27 @@
+name: Reusable Concatenate Strings Workflow
+
+on:
+  workflow_call:
+    inputs:
+      input1:
+        description: 'The first input string'
+        required: true
+        type: string
+      input2:
+        description: 'The second input string'
+        required: true
+        type: string
+    outputs:
+      output1:
+        description: "The concatenated string"
+        value: ${{ jobs.concatenate.outputs.result }}
+
+jobs:
+  concatenate:
+    runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.concatenate_step.outputs.result }}
+
+    steps:
+    - id: concatenate_step
+      run: echo "result=`expr ${{ inputs.input1 }} expr ${{ inputs.input2 }}`" >> $GITHUB_OUTPUT
